@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Cart</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>The Chips Shop</h1>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Order Now</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="cart.html">Cart</a></li> <!-- Link to the cart page -->
+          </ul>
+        </nav>
+      </header>
+  <h2>Your Cart</h2>
+  <ul id="cart-items"></ul>
+  <button id="clear-cart">Clear Cart</button> <!-- Clear Cart Button -->
+
+  <script>
+    const cartItemsElement = document.getElementById('cart-items');
+    const clearCartButton = document.getElementById('clear-cart'); // Get the clear cart button
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const displayCart = () => {
+      cartItemsElement.innerHTML = ''; // Clear current items
+      if (cart.length === 0) {
+        cartItemsElement.innerHTML = '<p>Your cart is empty.</p>'; // Show message when cart is empty
+      } else {
+        cart.forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = `${item.name} - Quantity: ${item.quantity} - Price: ${item.price} Tsh`;
+          cartItemsElement.appendChild(li);
+        });
+      }
+    };
+
+    const clearCart = () => {
+      cart = []; // Clear the cart array
+      localStorage.setItem('cart', JSON.stringify(cart)); // Update localStorage
+      displayCart(); // Re-render the cart display
+      alert("Cart has been cleared."); // Optional: Provide user feedback
+    };
+
+    clearCartButton.addEventListener('click', clearCart); // Attach event listener to the clear cart button
+
+    document.addEventListener('DOMContentLoaded', displayCart);
+  </script>
+  <footer>
+    <p1>&copy; 2024 The Chips Shop. All rights reserved. <span> serikalidevelopmentsolutions@2024</span> </p1>
+    
+  </footer>
+</body>
+</html>
